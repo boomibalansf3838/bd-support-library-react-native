@@ -1,6 +1,6 @@
 PODS:
   - Base64 (1.1.2)
-  - bd-support-library (1.0.6)
+  - bd-support-library (1.0.9)
   - BolddeskSupportSdk (0.1.0):
     - bd-support-library (~> 1.0.6)
     - boost
@@ -2720,7 +2720,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  bd-support-library: 2b6e3ad238739c83abdb0b4320a141f8a1f3455d
+  bd-support-library: 068fede2ebb5088827aa73bb531060da97effb9c
   BolddeskSupportSdk: 6bd974cf47ba25c0decc7ac26e16d65fb5f1d717
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb

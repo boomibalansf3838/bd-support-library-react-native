@@ -142,4 +142,36 @@ class BolddeskModule: NSObject {
         }
     }
 
+    @objc func isFromMobileSDK(_ userInfo: NSDictionary,
+                               resolver: RCTPromiseResolveBlock,
+                               rejecter: RCTPromiseRejectBlock) {
+        // Convert NSDictionary to [AnyHashable: Any]
+        let info = userInfo as? [AnyHashable: Any] ?? [:]
+
+        // Directly call your framework method
+        let result = BDSupportSDK.isFromMobileSDK(userInfo: info)
+
+        resolver(result)
+    }
+
+    @objc func clearallLocalData() {
+     DispatchQueue.main.async {
+       BDSupportSDK.clearallLocalData()
+     }
+   }
+
+   @objc func isLoggedIn(_ resolver: @escaping RCTPromiseResolveBlock,
+                      rejecter: @escaping RCTPromiseRejectBlock) {
+    DispatchQueue.main.async {
+        let result = BDSupportSDK.isLoggedIn()
+        resolver(result) 
+    }
+}
+
+    @objc func handleNotification(_ userInfo: NSDictionary) {
+      DispatchQueue.main.async {
+        let swiftUserInfo = userInfo as? [AnyHashable: Any] ?? [:]
+        _ = BDSupportSDK.processRemoteNotification(userInfo: swiftUserInfo)
+      }
+    }
 }

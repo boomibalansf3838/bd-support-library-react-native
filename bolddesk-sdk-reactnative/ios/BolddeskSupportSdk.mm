@@ -26,6 +26,13 @@ RCT_EXTERN_METHOD(setHomeDashboardContent:
                   ticketTitle:(NSString *)ticketTitle
                   ticketDescription:(NSString *)ticketDescription
                   submitButtonText:(NSString *)submitButtonText)
+RCT_EXTERN_METHOD(isFromMobileSDK:(NSDictionary *)userInfo
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(clearallLocalData)
+RCT_EXTERN_METHOD(isLoggedIn:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(handleNotification:(NSDictionary *)userInfo)
 @end
 
 // Keep the original BolddeskSupportSdk interface if you need it

@@ -31,6 +31,10 @@ interface BolddeskSupportSdkLibraryType {
     boldFontName: string
   ): void;
   applyCustomFontFamilyIniOS(fontFamily: String): void;
+  isFromMobileSDK(userInfo: { [key: string]: any }): Promise<boolean>;
+  clearallLocalData(): void;
+  isLoggedIn(): Promise<boolean>;
+  handleNotification(data?: { [key: string]: any }): void;
 }
 interface BoldDeskSDKHomeLibraryType {
   setHeaderLogo(url: string): void;
@@ -185,11 +189,37 @@ const BoldDeskSupportSDK: BolddeskSupportSdkLibraryType = {
       AndroidModule?.applyTheme?.(accentColor, primaryColor);
     }
   },
+  isFromMobileSDK: (userInfo: { [key: string]: any }): Promise<boolean> => {
+    if (Platform.OS === 'ios') {
+      return BolddeskModule?.isFromMobileSDK?.(userInfo);
+    } else {
+       return Promise.resolve(true);
+    }
+  },
+  clearallLocalData: () => {
+    if (Platform.OS === 'ios') {
+      BolddeskModule?.clearallLocalData?.();
+    } else {
+      // AndroidModule?.clearallLocalData?.();
+    }
+  },
+  isLoggedIn: (): Promise<boolean> => {
+    if (Platform.OS === 'ios') {
+      return BolddeskModule?.isLoggedIn?.();
+    } else {
+       return Promise.resolve(true);
+    }
+  },
   applyCustomFontFamilyInAndroid: (regularFontName, mediumFontName, semiBoldFontName, boldFontName) => {
     AndroidModule?.applyCustomFontFamilyInAndroid?.(regularFontName, mediumFontName, semiBoldFontName, boldFontName);
   },
   applyCustomFontFamilyIniOS: (fontFamily) => {
     BolddeskModule?.applyCustomFontFamilyIniOS?.(fontFamily);
+  },
+  handleNotification: (data) => {
+    if (Platform.OS === 'ios') {
+      BolddeskModule?.handleNotification?.(data || {})
+    }
   }
 };
 

@@ -1,13 +1,13 @@
 import { SafeAreaView, Button, View } from 'react-native';
 import { BoldDeskSupportSDK, BoldDeskSDKHome } from 'bolddesk-support-sdk';
 import { useEffect, useCallback } from 'react';
-// import { initializeNotifications } from './NotificationsService';
+import { initializeNotifications } from './NotificationsService';
 import { sign } from 'react-native-pure-jwt';
 
 
 export default function App() {
   useEffect(() => {
-    // initializeNotifications()
+    initializeNotifications()
   }, []);
 
 
@@ -38,7 +38,7 @@ export default function App() {
       }
     );
   };
-  const SECRET_KEY = 'WWPxDwKnG3K4vh5vs0GZ4FfceMHwm1Gmi2i+JFWLnI1ToVFu76VVrtgGZhnnD9Ic+ztEu+0Ankff+gGPj3rCVw=='; // avoid keeping secrets in client apps
+  const SECRET_KEY = 'Y1vqexADsfLEBViCxBqVES05Sv5nwZU5SykawU9LzIGKjQ2IDPDYP40I/GqPHGeHxFO3mQ/+YDI/ZYC+nwAAVg=='; // avoid keeping secrets in client apps
 
   async function buildJwt(): Promise<string> {
     const now = Math.floor(Date.now() / 1000);
@@ -66,6 +66,27 @@ export default function App() {
     } catch (e: any) {
       console.error('Login false:', e.message);
     }
+  }, []);
+
+  const isLoggedin = useCallback(async () => {
+    const result = await BoldDeskSupportSDK.isLoggedIn()
+    console.log('Is Logged in:', result);
+  }, []);
+
+  const isFromSDK = useCallback(async () => {
+    const userInfo: Record<string, any> = {
+      data: {
+        brandDomain: 'bolddesk.com',
+        userId: "12345",
+        userName: "John Doe",
+        email: "john.doe@example.com",
+      },
+      notificationType: "ticket_update",
+      timestamp: Date.now(),
+    };
+
+    const result = await BoldDeskSupportSDK.isFromMobileSDK(userInfo)
+    console.log('Is Logged in:', result);
   }, []);
 
 
@@ -122,6 +143,12 @@ export default function App() {
       </View>
       <View style={{ marginVertical: 10 }}>
         <Button title="Set Font family" onPress={() => BoldDeskSupportSDK.applyCustomFontFamilyIniOS("Times New Roman")} />
+      </View>
+      <View style={{ marginVertical: 10 }}>
+        <Button title="IS Logged in" onPress={() => isLoggedin()} />
+      </View>
+      <View style={{ marginVertical: 10 }}>
+        <Button title="IS from SDK" onPress={() => isFromSDK()} />
       </View>
       <View style={{ marginVertical: 10 }}>
         <Button title="Set content" onPress={() => BoldDeskSDKHome.setHomeDashboardContent({

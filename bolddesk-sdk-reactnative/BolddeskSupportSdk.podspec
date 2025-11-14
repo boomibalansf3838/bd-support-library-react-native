@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/BolddeskSupportSdk-Bridging-Header.h", "ios/**/*.{h,m,mm,cpp,swift}"
   s.private_header_files = "ios/**/*.h"
-  s.dependency 'bd-support-library', '~> 1.0.6'
+  s.dependency 'bd-support-library', '~> 1.0.9'
   s.dependency "React-Core"
 
   install_modules_dependencies(s)
